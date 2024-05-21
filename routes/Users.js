@@ -56,12 +56,14 @@ router.post("/", async (req, res) => {
 
       console.log("Sending request to OTP API");
       const otpResponse = await axios.post(
-        "http://localhost:8080/generate-otp",
+        "https://new-backend-xfge.onrender.com/generate-otp",
         { email }
       );
 
       if (otpResponse.status === 200) {
-        const redirectUrl = `/verify-account/${encodeURIComponent(email)}`;
+        const redirectUrl = `https://www.dailycaresupport.com/verify-account/${encodeURIComponent(
+          email
+        )}`;
         // Create the redirect URL
         const Mail = encodeURIComponent(email);
 
