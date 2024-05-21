@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// Enum for user roles
+enum UserRole {
+  ADMIN
+  USER
+  EMPLOYEE
+}
+
+model User {
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  name           String?
+  email          String?       @unique
+  emailVerified  Boolean       @default(false)
+  emailVerifiedDate DateTime   @default(now())
+  verificationRequestCount Int?
+  verificationToken String?
+  image          String?
+  hashedPassword String?
+  password       String
+  role           UserRole      @default(USER) // Default role is USER
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  
+  profile        UserProfile?  // Link to user profile
+  employeeProfile EmployeeProfile? // Link to vendor profile
+  sessions       Session[]     // Sessions associated with the user
+}
+
+model Session {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId   String   @db.ObjectId // User ID associated with the session
+  sessionId String   @unique // Unique session identifier
+  createdAt DateTime @default(now()) // Time when the session was created
+  
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model otp {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  email   String   @unique // Unique email for which the OTP is generated
+  otp     Int      // The OTP value
+  expiry  DateTime // The expiry time of the OTP
+  createdAt DateTime @default(now()) // Time when OTP was created
+  otpRequestCount Int  // Field to track request count
+}
+
+model BlacklistedUser {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  email   String   @unique
+  addedAt DateTime @default(now())
+}
+
+// Model for normal user profile
+model UserProfile {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @unique @db.ObjectId
+  dob       DateTime?
+  username  String?
+  address   String?
+  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Model for vendor profile
+model EmployeeProfile {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @unique @db.ObjectId
+  shopName  String?
+  location  String?
+  phone     String?
+  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
