@@ -4,7 +4,7 @@ const nodemailer = require("nodemailer");
 const path = require("path");
 const React = require("react");
 const { renderToStaticMarkup } = require("react-dom/server");
-const AWSVerifyEmail = require("../lib/emailTemplates");
+const AWSVerifyEmail = require("../lib/referralTemplate");
 
 // Function to send OTP email using a custom template
 async function sendOTPEmail(email, otp) {

@@ -1,6 +1,10 @@
 const express = require("express");
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
+const React = require("react");
+const ReactDOMServer = require("react-dom/server");
+const nodemailer = require("nodemailer");
+const CodepenChallengersEmail = require("../lib/uploadEmailTemplate"); // Adjust the path as necessary
 
 const router = express.Router();
 
@@ -14,7 +18,16 @@ cloudinary.config({
 // Configure multer for file upload
 const upload = multer({ dest: "uploads/" });
 
-// Route to handle file upload
+// Configure Nodemailer
+const transporter = nodemailer.createTransport({
+  service: "Gmail", // Use your preferred email service
+  auth: {
+    user: "soluwatist@gmail.com",
+    pass: "meqx zscx istz frcn",
+  },
+});
+
+// Route to handle file upload and send email
 router.post(
   "/",
   upload.fields([
@@ -28,17 +41,38 @@ router.post(
   async (req, res) => {
     try {
       const files = req.files;
-      const uploadedFiles = [];
+      const uploadedFiles = {};
 
       // Upload each file to Cloudinary
       for (const key in files) {
         const file = files[key][0];
         const result = await cloudinary.uploader.upload(file.path);
-        uploadedFiles.push(result.secure_url);
+        uploadedFiles[key] = result.secure_url;
+        console.log(`File uploaded: ${key} - ${result.secure_url}`);
       }
 
-      // Respond with the URLs of the uploaded files
-      res.json({ files: uploadedFiles });
+      // Render the email with the URLs of the uploaded files
+      const emailHtml = ReactDOMServer.renderToStaticMarkup(
+        React.createElement(CodepenChallengersEmail, { urls: uploadedFiles })
+      );
+
+      const mailOptions = {
+        from: process.env.EMAIL_USER, // Sender's email
+        to: "adebayofolasade631@gmail.com",
+        subject: "Your Uploaded Files",
+        html: emailHtml,
+      };
+
+      // Send the email
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          return res
+            .status(500)
+            .json({ message: "Failed to send email", error });
+        } else {
+          res.status(200).json({ message: "Email sent successfully", info });
+        }
+      });
     } catch (error) {
       console.error("Error during file upload:", error);
       res

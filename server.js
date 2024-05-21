@@ -8,6 +8,7 @@ const generateRoutes = require("./routes/generate-otp.js");
 const missedCallsRoutes = require("./routes/missed.js");
 // const applicationRoutes = require("./routes/mainapplications.js");
 const uploadRoutes = require("./routes/uploads.js");
+const referralRoutes = require("./routes/referral.js");
 const loginRoutes = require("./routes/login.js");
 const dotenv = require("dotenv");
 const cors = require("cors");
@@ -40,6 +41,7 @@ app.use("/generate-otp", generateRoutes);
 
 // app.use("/application", applicationRoutes);
 app.use("/upload", uploadRoutes);
+app.use("/referral", referralRoutes);
 app.use("/contact", contactRoutes);
 app.use("/login", loginRoutes);
 
