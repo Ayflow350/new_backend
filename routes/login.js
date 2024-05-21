@@ -45,6 +45,7 @@ router.post("/", async (req, res) => {
         name: existingUser.name,
         role: existingUser.role,
         sessionId: sessionId, // Include session ID in the JWT payload
+        emailVerified: existingUser.emailVerified,
       },
       process.env.JWT_SECRET,
       { expiresIn: "4d" }
