@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:3000", "https://daily-care-6y11.vercel.app"],
+    origin: ["http://localhost:3000", "https://www.dailycaresupport.com"],
     methods: "GET,POST,PUT,DELETE",
   })
 );
