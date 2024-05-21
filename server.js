@@ -3,9 +3,9 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 const userRoutes = require("./routes/Users.js");
 const verifyRoutes = require("./routes/verify-otp.js");
-// const contactRoutes = require("./routes/contact-us.js");
+const contactRoutes = require("./routes/contact.js");
 const generateRoutes = require("./routes/generate-otp.js");
-// const missedCallsRoutes = require("./routes/missed-calls.js");
+const missedCallsRoutes = require("./routes/missed.js");
 // const applicationRoutes = require("./routes/mainapplications.js");
 const uploadRoutes = require("./routes/uploads.js");
 const loginRoutes = require("./routes/login.js");
@@ -40,10 +40,10 @@ app.use("/generate-otp", generateRoutes);
 
 // app.use("/application", applicationRoutes);
 app.use("/upload", uploadRoutes);
-// app.use("/contact", contactRoutes);
+app.use("/contact", contactRoutes);
 app.use("/login", loginRoutes);
 
-// app.use("/missed", missedCallsRoutes);
+app.use("/missed", missedCallsRoutes);
 
 // Display the user Profile
 
