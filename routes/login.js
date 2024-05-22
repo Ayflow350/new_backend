@@ -20,6 +20,7 @@ router.post("/", async (req, res) => {
     if (!existingUser) {
       console.warn(`User with email ${email} does not exist`);
       return res.status(401).json({
+        success: false,
         message: `User with this email (${email}) does not exist.`,
       });
     }
@@ -32,7 +33,10 @@ router.post("/", async (req, res) => {
 
     if (!isPasswordCorrect) {
       console.warn(`Invalid password for user with email ${email}`);
-      return res.status(401).json({ message: "Invalid email or password" });
+      return res.status(401).json({
+        success: false,
+        message: "Invalid email or password",
+      });
     }
 
     console.log("Generating JWT token");
@@ -59,10 +63,14 @@ router.post("/", async (req, res) => {
       },
     });
 
-    res.json({ token });
+    res.json({
+      success: true,
+      token,
+    });
   } catch (error) {
     console.error("Error during login:", error);
     return res.status(500).json({
+      success: false,
       message: "An error occurred during login.",
       error: error.message,
     });
