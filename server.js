@@ -6,7 +6,7 @@ const verifyRoutes = require("./routes/verify-otp.js");
 const contactRoutes = require("./routes/contact.js");
 const generateRoutes = require("./routes/generate-otp.js");
 const missedCallsRoutes = require("./routes/missed.js");
-// const applicationRoutes = require("./routes/mainapplications.js");
+const applicationRoutes = require("./routes/application.js");
 const uploadRoutes = require("./routes/uploads.js");
 const referralRoutes = require("./routes/referral.js");
 const loginRoutes = require("./routes/login.js");
@@ -39,7 +39,7 @@ app.use("/verify-otp", verifyRoutes);
 
 app.use("/generate-otp", generateRoutes);
 
-// app.use("/application", applicationRoutes);
+app.use("/application", applicationRoutes);
 app.use("/upload", uploadRoutes);
 app.use("/referral", referralRoutes);
 app.use("/contact", contactRoutes);
