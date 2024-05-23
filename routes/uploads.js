@@ -58,7 +58,7 @@ router.post(
 
       const mailOptions = {
         from: process.env.EMAIL_USER, // Sender's email
-        to: "adebayofolasade631@gmail.com",
+        to: "blessinggrayly@gmail.com",
         subject: "Your Uploaded Files",
         html: emailHtml,
       };

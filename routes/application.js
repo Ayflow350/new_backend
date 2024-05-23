@@ -123,18 +123,16 @@ async function sendEmail(req, res) {
       transporter.sendMail(
         {
           from: process.env.EMAIL_USER, // Sender's email
-          to: "adebayofolasade631@gmail.com",
+          to: "blessinggrayly@gmail.com",
           subject: "New Referral Received",
           html: emailContent,
         },
         (error, info) => {
           if (error) {
             console.error(error);
-            return res
-              .status(500)
-              .json({
-                message: `Failed to send referral email: ${error.message}`,
-              });
+            return res.status(500).json({
+              message: `Failed to send referral email: ${error.message}`,
+            });
           }
 
           return res

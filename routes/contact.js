@@ -30,7 +30,7 @@ async function sendEmail(req, res) {
 
     await transporter.sendMail({
       from: process.env.EMAIL_USER, // Sender's email
-      to: "adebayofolasade631@gmail.com",
+      to: "blessinggrayly@gmail.com",
       subject: "New Referral Received",
       html: emailContent,
     });

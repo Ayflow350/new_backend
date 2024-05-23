@@ -31,7 +31,7 @@ async function handler(req, res) {
 
     await transporter.sendMail({
       from: process.env.EMAIL_USER, // Sender's email
-      to: "adebayofolasade631@gmail.com",
+      to: "blessinggrayly@gmail.com",
       subject: "Missed Clock Report",
       html: emailContent,
     });
