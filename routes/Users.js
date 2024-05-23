@@ -56,7 +56,7 @@ router.post("/", async (req, res) => {
 
       console.log("Sending request to OTP API");
       const otpResponse = await axios.post(
-        "https://new-backend-xfge.onrender.com/generate-otp",
+        "https://dailycare.vercel.app/generate-otp",
         { email }
       );
 
