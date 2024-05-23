@@ -56,12 +56,12 @@ router.post("/", async (req, res) => {
 
       console.log("Sending request to OTP API");
       const otpResponse = await axios.post(
-        "https://dailycare.vercel.app/generate-otp",
+        "https://new-backend-xfge.onrender.com/generate-otp",
         { email }
       );
 
       if (otpResponse.status === 200) {
-        const redirectUrl = `https://www.dailycaresupport.com/verify-account/${encodeURIComponent(
+        const redirectUrl = `https://dailycare.vercel.app/${encodeURIComponent(
           email
         )}`;
         // Create the redirect URL
