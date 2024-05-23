@@ -41,7 +41,7 @@ router.post("/", async (req, res) => {
 
     if (!existingUser.emailVerified) {
       console.log(`User with email ${email} has not verified their email`);
-      const redirectUrl = `http://localhost:3000/verify-account/${encodeURIComponent(
+      const redirectUrl = `https://dailycare.vercel.app/verify-account/${encodeURIComponent(
         email
       )}`;
       console.log("Redirect URL:", redirectUrl);
