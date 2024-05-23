@@ -39,6 +39,19 @@ router.post("/", async (req, res) => {
       });
     }
 
+    if (!existingUser.emailVerified) {
+      console.log(`User with email ${email} has not verified their email`);
+      const redirectUrl = `http://localhost:3000/verify-account/${encodeURIComponent(
+        email
+      )}`;
+      console.log("Redirect URL:", redirectUrl);
+      return res.status(401).json({
+        success: false,
+        message: "Email not verified",
+        redirectUrl: redirectUrl,
+      });
+    }
+
     console.log("Generating JWT token");
 
     const sessionId = uuidv4(); // Generate unique session identifier

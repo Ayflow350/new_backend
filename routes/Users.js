@@ -61,7 +61,8 @@ router.post("/", async (req, res) => {
       );
 
       if (otpResponse.status === 200) {
-        const redirectUrl = `https://dailycare.vercel.app/verify-account/${encodeURIComponent(
+        // const redirectUrl = `https://dailycare.vercel.app/verify-account/${encodeURIComponent(
+        const redirectUrl = `http://localhost:3000/verify-account/${encodeURIComponent(
           email
         )}`;
         // Create the redirect URL
